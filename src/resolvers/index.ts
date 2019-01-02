@@ -5,6 +5,7 @@ import { Link } from './Link';
 import { User } from './User';
 import { Subscription } from './Subscription';
 import { vote } from './Mutation/vote';
+import { Vote } from './Vote';
 
 export default {
   Query,
@@ -15,5 +16,6 @@ export default {
   },
   Subscription,
   Link,
-  User
+  User,
+  Vote
 };
