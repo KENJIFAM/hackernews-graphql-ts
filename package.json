@@ -20,7 +20,8 @@
   "author": "Kenji Fam",
   "license": "ISC",
   "dependencies": {
-    "graphql-yoga": "^1.16.9"
+    "graphql-yoga": "^1.16.9",
+    "prisma-client-lib": "^1.23.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",

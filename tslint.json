@@ -68,5 +68,10 @@
     "no-null-keyword": true,
     "prefer-const": false,
     "jsdoc-format": true
+  },
+  "linterOptions": {
+    "exclude": [
+      "src/generated/**/*"
+    ]
   }
 }
