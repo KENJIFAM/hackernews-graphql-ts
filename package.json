@@ -19,9 +19,13 @@
   "keywords": [],
   "author": "Kenji Fam",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "graphql-yoga": "^1.16.9"
+  },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.17",
     "@types/node": "^10.12.18",
+    "@types/ws": "^6.0.1",
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.9",
     "tslint": "^5.12.0",
