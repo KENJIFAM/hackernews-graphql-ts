@@ -1,13 +1,19 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 
 # testing
 /coverage
 
 # production
 /dist/bundle.js
+
+# API keys and secrets
+.env
+
+# Ignore built ts files
+dist/**/*
 
 # misc
 .DS_Store
