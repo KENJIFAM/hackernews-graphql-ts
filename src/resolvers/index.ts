@@ -4,12 +4,14 @@ import { post } from './Mutation/post';
 import { Link } from './Link';
 import { User } from './User';
 import { Subscription } from './Subscription';
+import { vote } from './Mutation/vote';
 
 export default {
   Query,
   Mutation: {
     ...auth,
-    post
+    post,
+    vote
   },
   Subscription,
   Link,
