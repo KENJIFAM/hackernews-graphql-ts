@@ -9,15 +9,32 @@ interface Args {
   orderBy: LinkOrderByInput;
 }
 
+interface Feed {
+  links: Link[];
+  count: number;
+}
+
 export const Query = {
-  feed: async (root: unknown, { filter, skip, first, orderBy }: Args, context: Context, info: GraphQLResolveInfo): Promise<Link[]> => {
+  feed: async (root: unknown, { filter, skip, first, orderBy }: Args, context: Context, info: GraphQLResolveInfo): Promise<Feed> => {
     const where = filter ? {
       OR: [
         { description_contains: filter },
         { url_contains: filter }
       ]
     } : {};
-    const links = await context.prisma.links({ where, skip, first, orderBy });
-    return links;
+
+    const links = await context.prisma.links({
+      where,
+      skip,
+      first,
+      orderBy
+    });
+
+    const count = await context.prisma
+      .linksConnection({ where })
+      .aggregate()
+      .count();
+
+    return { links, count };
   }
 };
