@@ -11,6 +11,7 @@ node_modules
 
 # API keys and secrets
 .env
+prisma/prisma.yml
 
 # Ignore built ts files
 dist/**/*
