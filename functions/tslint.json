@@ -71,7 +71,9 @@
   },
   "linterOptions": {
     "exclude": [
-      "src/generated/**/*"
+      "src/generated/**/*",
+      "src/graphql-yoga/**/*",
+      "node_modules/**/*"
     ]
   }
 }

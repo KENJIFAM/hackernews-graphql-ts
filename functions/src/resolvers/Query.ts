@@ -15,7 +15,7 @@ interface Feed {
 }
 
 export const Query = {
-  feed: async (root: unknown, { filter, skip, first, orderBy }: Args, context: Context, info: GraphQLResolveInfo): Promise<Feed> => {
+  feed: async (root, { filter, skip, first, orderBy }: Args, context: Context, info: GraphQLResolveInfo): Promise<Feed> => {
     const where = filter ? {
       OR: [
         { description_contains: filter },

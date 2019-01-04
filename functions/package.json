@@ -1,0 +1,35 @@
+{
+  "name": "functions",
+  "engines": {"node": "8"},
+  "scripts": {
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
+    "serve": "npm run build && firebase serve --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Functions\" -c \"yellow.bold,green.bold\" \"tsc -w\" \"firebase serve --only functions\""
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.1.0",
+    "bcryptjs": "^2.4.3",
+    "graphql-yoga": "^1.16.9",
+    "jsonwebtoken": "^8.4.0",
+    "prisma-client-lib": "^1.23.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.17",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/node": "^10.12.18",
+    "@types/ws": "^6.0.1",
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.9",
+    "tslint": "~5.8.0",
+    "typescript": "~2.8.3"
+  },
+  "private": true
+}

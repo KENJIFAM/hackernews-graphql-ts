@@ -2,7 +2,7 @@ import { Context, getUserId } from '../../utils';
 import { GraphQLResolveInfo } from 'graphql';
 import { Vote } from '../../generated/prisma-client';
 
-export const vote = async (root: unknown, { linkId }: { linkId: string}, context: Context, info: GraphQLResolveInfo): Promise<Vote> => {
+export const vote = async (root, { linkId }: { linkId: string}, context: Context, info: GraphQLResolveInfo): Promise<Vote> => {
   const userId = getUserId(context);
   const linkExists = await context.prisma.$exists.vote({
     user: { id: userId},

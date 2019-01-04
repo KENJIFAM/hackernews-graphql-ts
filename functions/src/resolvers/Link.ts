@@ -3,10 +3,10 @@ import { Context } from '../utils';
 import { GraphQLResolveInfo } from 'graphql';
 
 export const Link = {
-  postedBy: ({ id }: ILink, args: unknown, context: Context, info: GraphQLResolveInfo): UserPromise => {
+  postedBy: ({ id }: ILink, args, context: Context, info: GraphQLResolveInfo): UserPromise => {
     return context.prisma.link({ id }).postedBy();
   },
-  votes: ({ id }: ILink, args: unknown, context: Context, info: GraphQLResolveInfo): FragmentableArray<Vote> => {
+  votes: ({ id }: ILink, args, context: Context, info: GraphQLResolveInfo): FragmentableArray<Vote> => {
     return context.prisma.link({ id }).votes();
   }
 };
