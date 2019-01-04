@@ -1,9 +1,9 @@
 # Hacker News
 
-A project follows https://www.howtographql.com/ tutorial but is rewritten with TypeScript and configs for Firebase Cloud Functions deployment. Go to branch <b>firebase-server</b> to see the configuration.
+A project follows https://www.howtographql.com/ tutorial to create an app similar to https://news.ycombinator.com/ but is rewritten with TypeScript and configs for Firebase Cloud Functions deployment. Go to branch <b>firebase-server</b> to see the configuration.
 
-Backend: graphql-yoga, Prisma, Express
-Linter: TSLint
+Backend: graphql-yoga, Prisma, Express <br>
+Linter: TSLint<br>
 Deployment: Firebase Hosting, Firebase Cloud Functions
 
 

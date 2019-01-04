@@ -1,3 +1,5 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
   entry: './src/index.tsx',
   output: {
@@ -12,11 +14,16 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'ts-loader'
+      },
+      {
+        test: /\.css$/,
+        use:  [  'style-loader', MiniCssExtractPlugin.loader, 'css-loader']
       }
     ]
   },
-  externals: {
-    "react": "React",
-    "react-dom": "ReactDOM"
-  }
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
+    })
+  ]
 }
