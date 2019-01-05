@@ -1,17 +1,14 @@
 import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { MUTATION } from '../queries/Mutation';
-
-interface Props {
-
-}
+import { RouteComponentProps } from 'react-router';
 
 interface State {
   description: string;
   url: string;
 }
 
-class LinkCreate extends React.Component<Props, {}> {
+class LinkCreate extends React.Component<RouteComponentProps, State> {
   state: State = {
     description: '',
     url: ''
@@ -37,7 +34,11 @@ class LinkCreate extends React.Component<Props, {}> {
             placeholder='A URL for the link'
           />
         </div>
-        <Mutation mutation={MUTATION.POST} variables={{ description, url }}>
+        <Mutation
+          mutation={MUTATION.POST}
+          variables={{ description, url }}
+          onCompleted={() => this.props.history.push('/')}
+        >
           {(postMutation) => <button onClick={() => postMutation()}>Submit</button>}
         </Mutation>
       </div>
