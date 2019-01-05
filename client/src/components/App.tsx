@@ -1,7 +1,10 @@
 import * as React from 'react';
+import LinkList from './LinkList';
 
-const App = ()  => {
-  return <div>App</div>;
-};
+class App extends React.Component {
+  render() {
+    return <LinkList />;
+  }
+}
 
 export default App;
