@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-interface PropsLinkItem {
+interface Props {
   link: {
     id: string,
     description: string,
@@ -8,7 +8,7 @@ interface PropsLinkItem {
   };
 }
 
-class LinkItem extends React.Component<PropsLinkItem, {}> {
+class LinkItem extends React.Component<Props, {}> {
   render() {
     return (
       <div>
