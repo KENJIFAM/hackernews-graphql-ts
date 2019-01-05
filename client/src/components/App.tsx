@@ -3,6 +3,7 @@ import LinkList from './LinkList';
 import LinkCreate from './LinkCreate';
 import Header from './Header';
 import { Switch, Route } from 'react-router-dom';
+import Login from './Login';
 
 class App extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path='/' component={LinkList} />
             <Route exact path='/create' component={LinkCreate} />
+            <Route exact path='/login' component={Login} />
           </Switch>
         </div>
       </div>
