@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export enum QUERY {
-  FEED = gql`
+export const QUERY = {
+  FEED: gql`
     {
       feed {
         links {
@@ -12,4 +12,4 @@ export enum QUERY {
       }
     }
   `
-}
+};
