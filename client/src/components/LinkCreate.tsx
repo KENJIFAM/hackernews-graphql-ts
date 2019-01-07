@@ -2,10 +2,16 @@ import * as React from 'react';
 import { Mutation, MutationFn } from 'react-apollo';
 import { MUTATION } from '../queries/Mutation';
 import { RouteComponentProps } from 'react-router';
+import { QUERY } from '../queries/query';
+import { Feed } from '../types';
 
 interface State {
   description: string;
   url: string;
+}
+
+interface Data {
+  feed: Feed;
 }
 
 class LinkCreate extends React.Component<RouteComponentProps, State> {
@@ -38,6 +44,14 @@ class LinkCreate extends React.Component<RouteComponentProps, State> {
           mutation={MUTATION.POST}
           variables={{ description, url }}
           onCompleted={() => this.props.history.push('/')}
+          update={(store, { data: { post } }) => {
+            const data = store.readQuery({ query: QUERY.FEED }) as Data;
+            data.feed.links.unshift(post);
+            store.writeQuery({
+              query: QUERY.FEED,
+              data
+            });
+          }}
         >
           {(postMutation) => <button onClick={() => postMutation()}>Submit</button>}
         </Mutation>
