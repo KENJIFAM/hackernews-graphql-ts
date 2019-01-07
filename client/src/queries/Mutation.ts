@@ -1,6 +1,24 @@
 import gql from 'graphql-tag';
 
 export const MUTATION = {
+  VOTE: gql`
+    mutation VoteMutation($linkId: ID!) {
+      vote(linkId: $linkId) {
+        id
+        link {
+          votes {
+            id
+            user {
+              id
+            }
+          }
+        }
+        user {
+          id
+        }
+      }
+    }
+  `,
   POST: gql`
     mutation PostMutation($description: String!, $url: String!) {
       post(description: $description, url: $url) {

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { AUTH_TOKEN } from '../constants';
 import { Link } from '../types';
 import { timeDifferenceForDate } from '../utils';
+import { Mutation } from 'react-apollo';
+import { MUTATION } from '../queries/Mutation';
 
 interface Props {
   link: Link;
@@ -20,9 +22,13 @@ class LinkItem extends React.Component<Props, {}> {
         <div className='flex items-center'>
           <span className='gray'>{this.props.index + 1}.</span>
           {authToken && (
-            <div className='ml1 gray f11' onClick={() => this._voteForLink()}>
-              ▲
-            </div>
+            <Mutation mutation={MUTATION.VOTE} variables={{ linkId: this.props.link.id }}>
+              {voteMutation => (
+                <div className='ml1 gray f11' onClick={() => voteMutation()}>
+                  ▲
+                </div>
+              )}
+            </Mutation>
           )}
         </div>
         <div className='ml1'>

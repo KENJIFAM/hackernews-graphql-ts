@@ -6,6 +6,7 @@ export const QUERY = {
       feed {
         links {
           id
+          createdAt
           url
           description
           postedBy {
