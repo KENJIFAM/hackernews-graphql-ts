@@ -9,7 +9,7 @@ import { DataProxy } from 'apollo-cache';
 interface Props {
   link: Link;
   index: number;
-  updateStoreAfterVote(store: DataProxy, vote: Vote, linkId: string): void;
+  updateStoreAfterVote?: (store: DataProxy, vote: Vote, linkId: string) => void;
 }
 
 class LinkItem extends React.Component<Props, {}> {

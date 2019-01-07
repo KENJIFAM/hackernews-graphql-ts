@@ -3,15 +3,11 @@ import { Mutation, MutationFn } from 'react-apollo';
 import { MUTATION } from '../queries/Mutation';
 import { RouteComponentProps } from 'react-router';
 import { QUERY } from '../queries/query';
-import { Feed } from '../types';
+import { Data } from '../types';
 
 interface State {
   description: string;
   url: string;
-}
-
-interface Data {
-  feed: Feed;
 }
 
 class LinkCreate extends React.Component<RouteComponentProps, State> {

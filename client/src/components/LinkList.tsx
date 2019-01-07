@@ -2,15 +2,11 @@ import * as React from 'react';
 import LinkItem from './LinkItem';
 import { Query } from 'react-apollo';
 import { QUERY } from '../queries/query';
-import { Link, Feed, Vote } from '../types';
+import { Link, Vote, Data } from '../types';
 import { DataProxy } from 'apollo-cache';
 
 interface Props {
 
-}
-
-interface Data {
-  feed: Feed;
 }
 
 class LinkList extends React.Component<Props, {}> {
