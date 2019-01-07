@@ -7,6 +7,11 @@ export interface Link {
   createdAt: Date;
 }
 
+export interface Feed {
+  links: Link[];
+  count: number;
+}
+
 export interface Vote {
   link: Link;
   user: User[];

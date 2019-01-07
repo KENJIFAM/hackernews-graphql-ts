@@ -2,19 +2,34 @@ import * as React from 'react';
 import LinkItem from './LinkItem';
 import { Query } from 'react-apollo';
 import { QUERY } from '../queries/query';
-import { Link } from '../types';
+import { Link, Feed, Vote } from '../types';
+import { DataProxy } from 'apollo-cache';
 
 interface Props {
 
 }
 
+interface Data {
+  feed: Feed;
+}
+
 class LinkList extends React.Component<Props, {}> {
-  componentDidMount() {
-    this.renderList();
-  }
+  _updateCacheAfterVote = (store: DataProxy, createdVote: Vote, linkId: string) => {
+    const data = store.readQuery({ query: QUERY.FEED }) as Data;
+    const votedLink = data.feed.links.find(link => link.id === linkId);
+    votedLink.votes = createdVote.link.votes;
+    store.writeQuery({ query: QUERY.FEED, data });
+  };
 
   renderLink(links: Link[]) {
-    return links.map((link, i) => <LinkItem key={link.id} index={i} link={link} />);
+    return links.map((link, index) => (
+      <LinkItem
+        key={link.id}
+        index={index}
+        link={link}
+        updateStoreAfterVote={this._updateCacheAfterVote}
+      />
+    ));
   }
 
   renderList() {
