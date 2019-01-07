@@ -1,19 +1,23 @@
 import * as React from 'react';
-import { Link } from '../types';
 import LinkItem from './LinkItem';
 import { Query } from 'react-apollo';
 import { QUERY } from '../queries/query';
+import { Link } from '../types';
 
 interface Props {
 
 }
 
 class LinkList extends React.Component<Props, {}> {
-  renderLink(links: Link[]) {
-    return links.map(link => <LinkItem key={link.id} link={link} />);
+  componentDidMount() {
+    this.renderList();
   }
 
-  render() {
+  renderLink(links: Link[]) {
+    return links.map((link, i) => <LinkItem key={link.id} index={i} link={link} />);
+  }
+
+  renderList() {
     return (
       <Query query={QUERY.FEED}>
         {({ loading, error, data }) => {
@@ -26,6 +30,14 @@ class LinkList extends React.Component<Props, {}> {
           );
         }}
       </Query>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {this.renderList()}
+      </div>
     );
   }
 }

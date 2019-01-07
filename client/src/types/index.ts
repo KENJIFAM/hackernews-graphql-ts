@@ -1,7 +1,15 @@
 export interface Link {
   id: string;
-  description: string;
   url: string;
+  description: string;
+  votes: Vote[];
+  postedBy: User;
+  createdAt: Date;
+}
+
+export interface Vote {
+  link: Link;
+  user: User[];
 }
 
 export interface AuthPayload {

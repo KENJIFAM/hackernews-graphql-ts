@@ -8,6 +8,16 @@ export const QUERY = {
           id
           url
           description
+          postedBy {
+            id
+            name
+          }
+          votes {
+            id
+            user {
+              id
+            }
+          }
         }
       }
     }
