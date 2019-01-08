@@ -10,6 +10,7 @@ export interface Link {
 export interface Feed {
   links: Link[];
   count: number;
+  __typename?: string;
 }
 
 export interface Vote {
@@ -30,4 +31,14 @@ export interface User {
 
 export interface Data {
   feed: Feed;
+}
+
+export interface SubscriptionData {
+  subscriptionData: {
+    data: {
+      newLink: {
+        node: Link
+      }
+    }
+  };
 }
