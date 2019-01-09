@@ -4,6 +4,7 @@ import { MUTATION } from '../queries/Mutation';
 import { RouteComponentProps } from 'react-router';
 import { QUERY } from '../queries/query';
 import { Data } from '../types';
+import { LINKS_PER_PAGE } from '../constants';
 
 interface State {
   description: string;
@@ -39,15 +40,21 @@ class LinkCreate extends React.Component<RouteComponentProps, State> {
         <Mutation
           mutation={MUTATION.POST}
           variables={{ description, url }}
-          onCompleted={() => this.props.history.push('/')}
+          onCompleted={() => this.props.history.push('/new/1')}
           update={(store, { data: { post } }) => {
             console.log(store);
-
-            const data = store.readQuery({ query: QUERY.FEED }) as Data;
+            const first = LINKS_PER_PAGE;
+            const skip = 0;
+            const orderBy = 'createdAt_DESC';
+            const data: Data = store.readQuery({
+              query: QUERY.FEED,
+              variables: { first, skip, orderBy }
+            });
             data.feed.links.unshift(post);
             store.writeQuery({
               query: QUERY.FEED,
-              data
+              data,
+              variables: { first, skip, orderBy }
             });
           }}
         >

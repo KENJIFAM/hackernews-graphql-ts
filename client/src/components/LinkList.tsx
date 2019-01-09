@@ -15,7 +15,17 @@ interface Params {
 
 class LinkList extends React.Component<RouteComponentProps<Params>, {}> {
   _updateCacheAfterVote = (store: DataProxy, createdVote: Vote, linkId: string) => {
-    const data = store.readQuery({ query: QUERY.FEED }) as Data;
+    const isNewPage = this.props.location.pathname.includes('new');
+    const page = parseInt(this.props.match.params.page, 10);
+
+    const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+    const first = isNewPage ? LINKS_PER_PAGE : 100;
+    const orderBy = isNewPage ? 'createdAt_DESC' : undefined;
+
+    const data: Data = store.readQuery({
+      query: QUERY.FEED,
+      variables: { first, skip, orderBy }
+    });
     const votedLink = data.feed.links.find(link => link.id === linkId);
     votedLink.votes = createdVote.link.votes;
     store.writeQuery({ query: QUERY.FEED, data });
@@ -63,16 +73,30 @@ class LinkList extends React.Component<RouteComponentProps<Params>, {}> {
     return { first, skip, orderBy };
   };
 
-  renderLink(links: Link[]) {
-    console.log(links);
-    return links.map((link, index) => link ? (
-      <LinkItem
-        key={link.id}
-        index={index}
-        link={link}
-        updateStoreAfterVote={this._updateCacheAfterVote}
-      />
-    ) : '');
+  _getLinksToRender = (data: Data): Link[] => {
+    const isNewPage = this.props.location.pathname.includes('new');
+    if (isNewPage) {
+      return data.feed.links;
+    }
+    const rankedLinks = data.feed.links.slice();
+    rankedLinks.sort((l1, l2) => l2.votes.length - l1.votes.length);
+    return rankedLinks;
+  };
+
+  _nextPage = (data: Data) => {
+    const page = parseInt(this.props.match.params.page, 10);
+    if (page <= data.feed.count / LINKS_PER_PAGE) {
+      const nextPage = page + 1;
+      this.props.history.push(`/new/${nextPage}`);
+    }
+  };
+
+  _previousPage = () => {
+    const page = parseInt(this.props.match.params.page, 10);
+    if (page > 1) {
+      const previousPage = page - 1;
+      this.props.history.push(`/new/${previousPage}`);
+    }
   }
 
   renderList() {
@@ -83,10 +107,34 @@ class LinkList extends React.Component<RouteComponentProps<Params>, {}> {
           if (error) return <div>Error!</div>;
           this._subscribeToNewLinks(subscribeToMore);
           this._subscribeToNewVotes(subscribeToMore);
+
+          const linksToRender: Link[] = this._getLinksToRender(data);
+          const isNewPage = this.props.location.pathname.includes('new');
+          const pageIndex = this.props.match.params.page
+            ? (parseInt(this.props.match.params.page, 10) - 1) * LINKS_PER_PAGE
+            : 0;
+
           return (
-            <div>
-              {this.renderLink(data.feed.links)}
-            </div>
+            <React.Fragment>
+              {linksToRender.map((link, index) => (
+                <LinkItem
+                  key={link.id}
+                  index={index + pageIndex}
+                  link={link}
+                  updateStoreAfterVote={this._updateCacheAfterVote}
+                />
+              ))}
+              {isNewPage && (
+                <div className='flex ml4 mv3 gray'>
+                  <div className='pointer mr2' onClick={this._previousPage}>
+                    Previous
+                  </div>
+                  <div className='pointer' onClick={() => this._nextPage(data)}>
+                    Next
+                  </div>
+                </div>
+              )}
+            </React.Fragment>
           );
         }}
       </Query>

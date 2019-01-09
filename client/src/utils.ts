@@ -30,4 +30,4 @@ export const timeDifferenceForDate = (date: Date) => {
   const now = new Date().getTime();
   const updated = new Date(date).getTime();
   return timeDifference(now, updated);
-}
+};

@@ -28,7 +28,7 @@ class LinkItem extends React.Component<Props, {}> {
               }
             >
               {voteMutation => (
-                <div className='ml1 gray f11' onClick={() => voteMutation()}>
+                <div className='pointer ml1 gray f11' onClick={() => voteMutation()}>
                   ▲
                 </div>
               )}
@@ -37,9 +37,9 @@ class LinkItem extends React.Component<Props, {}> {
         </div>
         <div className='ml1'>
           <div>
-            {this.props.link.description} ({this.props.link.url})
+            {this.props.link.description} <span className='f7 gray'>({this.props.link.url})</span>
           </div>
-          <div className='f6 lh-copy gray'>
+          <div className='f7 lh-copy gray'>
             {this.props.link.votes ? this.props.link.votes.length : 0} votes | by{' '}
             {this.props.link.postedBy
               ? this.props.link.postedBy.name

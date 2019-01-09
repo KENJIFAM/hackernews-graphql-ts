@@ -7,27 +7,35 @@ class Header extends React.Component<RouteComponentProps> {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN);
     return (
-      <div className='flex pal justify-between nowrap orange'>
-        <div className='flex flex-fixed black'>
-          <div className='fw7 mr1'>Hacker News</div>
-          <Link to='/' className='ml1 no-underline black'>new</Link>
-          <div className='ml1'>|</div>
-          <Link to='/top' className='ml1 no-underline black'>
-            top
+      <div className='flex pal justify-between nowrap orange items-center'>
+        <div className='flex flex-fixed black items-center'>
+          <Link to='/' className='logo flex mr1'>
+            <img src='/logo.png' />
           </Link>
-          <div className='ml1'>|</div>
-          <Link to='/search' className='ml1 no-underline black'>search</Link>
-          {authToken && (
-            <div className='flex'>
+          <div className='flex flex-wrap mv2'>
+            <Link to='/' className='fw7 mr2 no-underline black'>Hacker News</Link>
+            <div className='flex flex-nowrap'>
+              <Link to='/' className='no-underline black'>new</Link>
               <div className='ml1'>|</div>
-              <Link to='/create' className='ml1 no-underline black'>submit</Link>
+              <Link to='/top' className='ml1 no-underline black'>
+                top
+              </Link>
+              <div className='ml1'>|</div>
+              <Link to='/search' className='ml1 no-underline black'>search</Link>
+              {authToken && (
+                <div className='flex'>
+                  <div className='ml1'>|</div>
+                  <Link to='/create' className='ml1 mr5 no-underline black'>submit</Link>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
+
         <div className='flex flex-fixed'>
           {authToken ? (
             <div
-              className='ml1 pointer black'
+              className='ml1 mr3 pointer black'
               onClick={() => {
                 localStorage.removeItem(AUTH_TOKEN);
                 this.props.history.push('/');

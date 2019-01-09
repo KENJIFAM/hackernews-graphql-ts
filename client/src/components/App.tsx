@@ -9,7 +9,7 @@ import Search from './Search';
 class App extends React.Component {
   render() {
     return (
-      <div className='center w85'>
+      <div className='center w-90-m w-80-l mv2-ns f6'>
         <Header />
         <div className='ph3 pv1 background-gray'>
           <Switch>
