@@ -6,12 +6,14 @@ import { Link, Vote, Data, SubscriptionData } from '../types';
 import { DataProxy } from 'apollo-cache';
 import { SubscribeToMoreOptions, OperationVariables } from 'apollo-client';
 import { SUBSCRIPTION } from '../queries/Subscription';
+import { RouteComponentProps } from 'react-router';
+import { LINKS_PER_PAGE } from '../constants';
 
-interface Props {
-
+interface Params {
+  page: string;
 }
 
-class LinkList extends React.Component<Props, {}> {
+class LinkList extends React.Component<RouteComponentProps<Params>, {}> {
   _updateCacheAfterVote = (store: DataProxy, createdVote: Vote, linkId: string) => {
     const data = store.readQuery({ query: QUERY.FEED }) as Data;
     const votedLink = data.feed.links.find(link => link.id === linkId);
@@ -51,6 +53,16 @@ class LinkList extends React.Component<Props, {}> {
     });
   }
 
+  _getQueryVariables = () => {
+    const isNewPage: boolean = this.props.location.pathname.includes('new');
+    const page: number = parseInt(this.props.match.params.page, 10);
+
+    const skip: number = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+    const first: number = isNewPage ? LINKS_PER_PAGE : 100;
+    const orderBy: string = isNewPage ? 'createdAt_DESC' : undefined;
+    return { first, skip, orderBy };
+  };
+
   renderLink(links: Link[]) {
     console.log(links);
     return links.map((link, index) => link ? (
@@ -65,7 +77,7 @@ class LinkList extends React.Component<Props, {}> {
 
   renderList() {
     return (
-      <Query query={QUERY.FEED}>
+      <Query query={QUERY.FEED} variables={this._getQueryVariables()}>
         {({ loading, error, data, subscribeToMore }) => {
           if (loading) return <div>Loading...</div>;
           if (error) return <div>Error!</div>;

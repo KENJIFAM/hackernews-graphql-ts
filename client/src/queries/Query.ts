@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 
 export const QUERY = {
   FEED: gql`
-    {
-      feed {
+    query FeedQuery($first: Int, $skip: Int, $orderBy: LinkOrderByInput) {
+      feed(first: $first, skip: $skip, orderBy: $orderBy) {
         links {
           id
           createdAt
@@ -20,6 +20,7 @@ export const QUERY = {
             }
           }
         }
+        count
       }
     }
   `,
