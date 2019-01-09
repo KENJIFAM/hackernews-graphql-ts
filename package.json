@@ -4,17 +4,18 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/server.js",
-    "watch-node": "nodemon dist/server.js",
+    "start": "NODE_ENV=production node dist/index.js",
+    "watch-node": "nodemon dist/index.js",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
     "build": "npm run build-ts && npm run tslint",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "debug": "npm run build && npm run watch-debug",
-    "serve-debug": "nodemon --inspect dist/server.js",
+    "serve-debug": "nodemon --inspect dist/index.js",
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\"",
-    "dev": "npm run watch  && npm run tslint"
+    "dev": "npm run watch  && npm run tslint",
+    "postinstall": "npm run build"
   },
   "keywords": [],
   "author": "Kenji Fam",
