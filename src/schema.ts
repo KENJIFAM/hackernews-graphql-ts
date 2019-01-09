@@ -1,3 +1,4 @@
+export const typeDefs = `
 scalar DateTime
 
 enum LinkOrderByInput {
@@ -57,3 +58,4 @@ type Vote {
   link: Link!
   user: User!
 }
+`;
