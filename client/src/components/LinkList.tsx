@@ -27,8 +27,8 @@ class LinkList extends React.Component<Props, {}> {
     subscribeToMore({
       document: SUBSCRIPTION.NEW_LINK,
       updateQuery: (prev: Data, { subscriptionData }: SubscriptionData) => {
-        if (!subscriptionData.data) return prev;
-        const newLink = subscriptionData.data.newLink.node;
+        if (!subscriptionData.data.newLink) return prev;
+        const newLink = subscriptionData.data.newLink;
 
         return Object.assign({}, prev, {
           feed: {
@@ -41,15 +41,26 @@ class LinkList extends React.Component<Props, {}> {
     });
   };
 
+  _subscribeToNewVotes = (subscribeToMore:
+    <TSubscriptionData>(options:
+      SubscribeToMoreOptions<any, OperationVariables, TSubscriptionData>
+    ) => () => void
+  ) => {
+    subscribeToMore({
+      document: SUBSCRIPTION.NEW_VOTE
+    });
+  }
+
   renderLink(links: Link[]) {
-    return links.map((link, index) => (
+    console.log(links);
+    return links.map((link, index) => link ? (
       <LinkItem
         key={link.id}
         index={index}
         link={link}
         updateStoreAfterVote={this._updateCacheAfterVote}
       />
-    ));
+    ) : '');
   }
 
   renderList() {
@@ -59,6 +70,7 @@ class LinkList extends React.Component<Props, {}> {
           if (loading) return <div>Loading...</div>;
           if (error) return <div>Error!</div>;
           this._subscribeToNewLinks(subscribeToMore);
+          this._subscribeToNewVotes(subscribeToMore);
           return (
             <div>
               {this.renderLink(data.feed.links)}

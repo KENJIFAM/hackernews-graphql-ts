@@ -4,7 +4,28 @@ export const SUBSCRIPTION = {
   NEW_LINK: gql`
     subscription {
       newLink {
-        node {
+        id
+        url
+        description
+        createdAt
+        postedBy {
+          id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
+        }
+      }
+    }
+  `,
+  NEW_VOTE: gql`
+    subscription {
+      newVote {
+        id
+        link {
           id
           url
           description
@@ -19,6 +40,9 @@ export const SUBSCRIPTION = {
               id
             }
           }
+        }
+        user {
+          id
         }
       }
     }

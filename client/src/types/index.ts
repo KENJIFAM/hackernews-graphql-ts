@@ -36,9 +36,7 @@ export interface Data {
 export interface SubscriptionData {
   subscriptionData: {
     data: {
-      newLink: {
-        node: Link
-      }
+      newLink: Link
     }
   };
 }

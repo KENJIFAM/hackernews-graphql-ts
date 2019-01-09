@@ -41,6 +41,8 @@ class LinkCreate extends React.Component<RouteComponentProps, State> {
           variables={{ description, url }}
           onCompleted={() => this.props.history.push('/')}
           update={(store, { data: { post } }) => {
+            console.log(store);
+
             const data = store.readQuery({ query: QUERY.FEED }) as Data;
             data.feed.links.unshift(post);
             store.writeQuery({

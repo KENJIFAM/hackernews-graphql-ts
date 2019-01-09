@@ -25,6 +25,17 @@ export const MUTATION = {
         id
         url
         description
+        createdAt
+        postedBy {
+          id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
+        }
       }
     }
   `,
