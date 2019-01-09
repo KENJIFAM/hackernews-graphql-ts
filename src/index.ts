@@ -12,4 +12,7 @@ const server = new GraphQLServer({
   context: request => ({ ...request, prisma })
 });
 
-server.start(() => console.log(`Server is running on port ${server.options.port}`));
+server.start({
+  endpoint: '/graphql',
+  playground: '/playground'
+}, ({ port }) => console.log(`Server is running on port ${port}`));
