@@ -14,7 +14,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 const httpLink: ApolloLink = createHttpLink({
-  uri: 'https://hackernews-graphql-ts.firebaseapp.com/graphql'
+  uri: 'https://hackernews-graphql-ts.herokuapp.com/graphql'
 });
 
 const authLink: ApolloLink = setContext((_, { headers }) => {
@@ -28,7 +28,7 @@ const authLink: ApolloLink = setContext((_, { headers }) => {
 });
 
 const wsLink: WebSocketLink = new WebSocketLink({
-  uri: 'wss://hackernews-graphql-ts.firebaseio.com/graphql',
+  uri: 'wss://hackernews-graphql-ts.herokuapp.com/graphql',
   options: {
     reconnect: true,
     connectionParams: {
