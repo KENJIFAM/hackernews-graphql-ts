@@ -44,7 +44,7 @@ class Header extends React.Component<RouteComponentProps> {
               logout
             </div>
           ) : (
-            <Link to='/login' className='ml1 no-underline black'>login</Link>
+            <Link to='/login' className='ml1 mr3 no-underline black'>login</Link>
           )}
         </div>
       </div>
